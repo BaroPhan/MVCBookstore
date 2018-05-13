@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MVCBookStore.Models.SACH>
+
+<style type="text/css">
+    #Datmua a {
+        clear:both;
+        background-color:red;
+        color:white;
+        width:120px; 
+        height:35px;
+        display:block;
+        float:right;
+        text-align:center;
+        padding-top:10px;
+        text-decoration:none;
+        font-weight:bold;
+    }
+    #Datmua a:hover {
+        background-color:gray;
+        color:red;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>Details</h2>
+<div>
+    <div style="width:40%; float:left; border-left:dotted 1px azure">
+        <img src="~/BookCover/@Model.FirstOrDefault().Hinhminhhoa" width="100%" />
+    </div>
+    <div style="width:60%; float:left; padding:10px">
+        <h4 style="font-weight:bold; color:red">Ten sach: @Model.FirstOrDefault().Tensach</h4>
+        <p style="text-align:justify"><span style="font-weight:bold">Mo ta: </span> @Model.FirstOrDefault().Mota</p>
+        <p style="font-weight:bold">Gia ban: <span style="color:red; font-size:16pt"> @Model.FirstOrDefault().Dongia</span></p>
+    </div>
+
+    <div id="Datmua">
+      <a href="@Url.Action("ThemGiohang","Giohang",new { @iMasach = Model.FirstOrDefault().Masach, @strURL = Request.Url.ToString() })">
+          DAT MUA
+      </a>
+    </div>
+</div>

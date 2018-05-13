@@ -1,0 +1,85 @@
+﻿@using MVCBookStore.Models
+@{
+    ViewBag.Title = "Dathang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2 style="text-align:center">THONG TIN HANG HOA</h2>
+<table align="center" border="1">
+    <tr style="text-align:center; font-weight:bold">
+        <td>Ma sach</td>
+        <td>Ten sach</td>
+        <td>Anh bia</td>
+        <td>So luong</td>
+        <td>Don gia</td>
+        <td>Thanh tien</td>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="text-align:center; font-weight:bold">
+            <td>@item.iMasach</td>
+            <td>@item.sTensach</td>
+            <td><img src="~/BookCover/@item.sAnhbia" /></td>
+            @using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @iMaSP = item.iMasach }))
+            {
+                <td>@item.iSoluong</td>
+                <td>@String.Format("{0:0,0}", item.dDongia)</td>
+                <td>@String.Format("{0:0,0}", item.dThanhtien)</td>
+            }
+        </tr>
+    }
+
+    <tr style="font-weight:bold; text-align:right; color:red">
+        <td colspan="3">So luong sach: @ViewBag.Tongsoluong</td>
+        <td colspan="3">Tong tien: @String.Format("{0:0,0}", ViewBag.Tongtien) VND</td>
+    </tr>
+    <tr style="font-weight:bold; color:blue; text-align:right">
+        <td colspan="6">
+            @Html.ActionLink("TRO VE GIO HANG", "Giohang", "Giohang")
+        </td>
+    </tr>
+</table>
+
+<h2 style="text-align:center">THONG TIN DAT HANG</h2>
+@{ 
+    KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+}
+<table align="center">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr style="height:40px">
+            <td>Ho ten khach hang: </td>
+            <td style="font-weight:bold">@kh.HoTenKH</td>
+        </tr>
+        <tr style="height:40px">
+            <td>Dia chi: </td>
+            <td style="font-weight:bold">@kh.DiachiKH</td>
+        </tr>
+        <tr style="height:40px">
+            <td>Dien thoai: </td>
+            <td style="font-weight:bold">@kh.DienthoaiKH</td>
+        </tr>
+        <tr style="height:40px">
+            <td>Ngay dat: </td>
+            <td style="font-weight:bold">@DateTime.Now.ToShortDateString()</td>
+        </tr>
+        <tr style="height:40px">
+            <td>Ngay giao hang: </td>
+            <td style="font-weight:bold">
+                <input type="date" name="Ngaygiao" />
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="submit" value="DONG Y DAT HANG" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
